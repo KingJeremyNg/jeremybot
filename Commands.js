@@ -1,5 +1,4 @@
 const { createCanvas, loadImage } = require("canvas");
-var fs = require("fs");
 
 function log(msg) {
     return (msg.author.tag + " | " + msg.content);
