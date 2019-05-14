@@ -1,0 +1,2 @@
+# Jeremy-Bot
+Discord bot
