@@ -6,9 +6,9 @@ const kitsuAPI = new Kitsu();
 
 const Commands = require("./Commands");
 
-const Settings = require('./Settings');
-
 var fs = require("fs");
+
+var token = process.env.TOKEN;
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -52,4 +52,4 @@ client.on("message", async msg => {
     }
 });
 
-client.login(Settings.token);
+client.login(token);
