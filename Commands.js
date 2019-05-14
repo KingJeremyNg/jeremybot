@@ -1,7 +1,7 @@
 const { createCanvas, loadImage } = require("canvas");
 
 function log(msg) {
-    return (msg.author.tag + " | " + msg.content);
+    return (msg.guild + " | " + msg.author.tag + " | " + msg.content);
 };
 
 function separate(string) {
@@ -63,12 +63,12 @@ module.exports = {
         array.splice(0, 1);
         switch (array.length) {
             case 1: if (!isNaN(array[0])) {
-                return `You rolled ${array[0]} dice for ${randomInt(1 * array[0], 6 * array[0])}`;
-            }
+                        return `You rolled ${array[0]} dice for ${randomInt(1 * array[0], 6 * array[0])}`;
+                    }
             case 2: if (!isNaN(array[0]) && !isNaN(array[1])) {
-                return `You rolled a d${array[1]} * ${array[0]} for ${randomInt(1 * array[0], array[0] * array[1])}`;
-            }
-            default: return `You rolled ${randomInt(1, 6)}`;
+                        return `You rolled a d${array[1]} * ${array[0]} for ${randomInt(1 * array[0], array[0] * array[1])}`;
+                    }
+            default:return `You rolled ${randomInt(1, 6)}`;
         }
     },
 
@@ -77,24 +77,54 @@ module.exports = {
         return ('./boi.png');
     },
 
-    ahshit: async function (msg) {
-        console.log(log(msg));
-        var array = separate(msg.content);
-        array.splice(0, 1);
-
-        return await loadImage(msg.author.avatarURL).then(async (image) => {
+    meme: async function (image1, image2, position) {
+        return await loadImage(image1).then(async (image) => {
             let canvas = createCanvas(image.width, image.height);
             var ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, image.width, image.height);
 
-            return await loadImage('./ahshit.png').then(async (meme) => {
+            return await loadImage(image2).then(async (meme) => {
                 var scale = Math.min(image.height / meme.height, image.width / meme.width);
 
-                ctx.drawImage(meme, image.width - (meme.width * scale), image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
-                
+                switch(position) {
+                    case 1: ctx.drawImage(meme, image.width - (meme.width * scale), 0, meme.width * scale, meme.height * scale);
+                            break;
+                    case 2: ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
+                            break;
+                    case 3: ctx.drawImage(meme, 0, image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                            break;
+                    case 4: ctx.drawImage(meme, image.width - (meme.width * scale), image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                            break;
+                }
+
                 return await canvas.toBuffer();
             })
         })
+    },
+
+    ahshit: async function (msg) {
+        console.log(log(msg));
+        var array = separate(msg.content);
+        array.splice(0, 1);
+        
+        if (array[0]) {
+            if (msg.mentions.users.first()) {
+                console.log("0");
+                return await this.meme(msg.mentions.users.first().avatarURL, './ahshit.png', 4);
+            }
+            if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                console.log("1");
+                return await this.meme(array[0], './ahshit.png', 4);
+            }
+        }
+        if (msg.attachments.size > 0) {
+            if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                console.log("2");
+                return await this.meme(msg.attachments.first().url, './ahshit.png', 4);
+            }
+        }
+        console.log("3");
+        return await this.meme(msg.author.avatarURL, './ahshit.png', 4);
     },
 
     protect: function (msg) {

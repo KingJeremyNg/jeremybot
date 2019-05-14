@@ -29,6 +29,7 @@ client.on("message", async msg => {
                         break;
 
         case "!MOCK":   msg.channel.send(Commands.mock(msg));
+                        msg.delete(5000);
                         break;
 
         case "!ROLL":   msg.channel.send(Commands.roll(msg));
@@ -46,7 +47,8 @@ client.on("message", async msg => {
 
         case "!HELP":   break;
 
-        case "!QUIT":   Commands.shutdown(msg);
+        case "!QUIT":   client.user.setPresence({status: 'offline'});
+                        Commands.shutdown(msg);
     }
 });
 
