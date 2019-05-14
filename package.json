@@ -8,10 +8,10 @@
     "discord.js": "^11.5.0",
     "kitsu": "^7.0.3"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node JeremyBot.js"
+    "start": "node JeremyBot.js",
+    "dev": "nodemon JeremyBot.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/KingJeremyNg/Jeremy-Bot/issues"
   },
-  "homepage": "https://github.com/KingJeremyNg/Jeremy-Bot#readme"
+  "homepage": "https://github.com/KingJeremyNg/Jeremy-Bot#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
 }
