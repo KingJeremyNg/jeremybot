@@ -79,7 +79,7 @@ module.exports = {
 
     memeOverlay: async function (image1, image2, position) {
         return await loadImage(image1).then(async (image) => {
-            let canvas = createCanvas(image.width, image.height);
+            canvas = createCanvas(image.width, image.height);
             var ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, image.width, image.height);
 
@@ -129,25 +129,25 @@ module.exports = {
 
                 switch(position) {
                     case 1: var scale = image.width / meme.width;
-                            let canvas = createCanvas(image.width, image.height + meme.height * scale);
+                            canvas = createCanvas(image.width, image.height + meme.height * scale);
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(image, 0, meme.height * scale, image.width, image.height);
                             ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
                             break;
                     case 2: var scale = image.height / meme.height;
-                            let canvas = createCanvas(image.width + meme.width * scale, image.height);
+                            canvas = createCanvas(image.width + meme.width * scale, image.height);
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(image, meme.width * scale, 0, image.width, image.height);
                             ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
                             break;
                     case 3: var scale = image.width / meme.width;
-                            let canvas = createCanvas(image.width, image.height + meme.height * scale);
+                            canvas = createCanvas(image.width, image.height + meme.height * scale);
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(image, 0, 0, image.width, image.height);
-                            ctx.drawImage(meme, 0, image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                            ctx.drawImage(meme, 0, image.height, meme.width * scale, meme.height * scale);
                             break;
                     case 4: var scale = image.height / meme.height;
-                            let canvas = createCanvas(image.width + meme.width * scale, image.height);
+                            canvas = createCanvas(image.width + meme.width * scale, image.height);
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(image, 0, 0, image.width, image.height);
                             ctx.drawImage(meme, image.width, 0, meme.width * scale, meme.height * scale);
@@ -159,7 +159,7 @@ module.exports = {
         })
     },
 
-    protect: function (msg) {
+    protect: async function (msg) {
         console.log(log(msg));
         var array = separate(msg.content);
         array.splice(0, 1);
