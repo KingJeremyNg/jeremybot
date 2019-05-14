@@ -77,7 +77,7 @@ module.exports = {
         return ('./boi.png');
     },
 
-    meme: async function (image1, image2, position) {
+    memeOverlay: async function (image1, image2, position) {
         return await loadImage(image1).then(async (image) => {
             let canvas = createCanvas(image.width, image.height);
             var ctx = canvas.getContext('2d');
@@ -109,26 +109,75 @@ module.exports = {
         
         if (array[0]) {
             if (msg.mentions.users.first()) {
-                console.log("0");
-                return await this.meme(msg.mentions.users.first().avatarURL, './ahshit.png', 4);
+                return await this.memeOverlay(msg.mentions.users.first().avatarURL, './ahshit.png', 4);
             }
             if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                console.log("1");
-                return await this.meme(array[0], './ahshit.png', 4);
+                return await this.memeOverlay(array[0], './ahshit.png', 4);
             }
         }
         if (msg.attachments.size > 0) {
             if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                console.log("2");
-                return await this.meme(msg.attachments.first().url, './ahshit.png', 4);
+                return await this.memeOverlay(msg.attachments.first().url, './ahshit.png', 4);
             }
         }
-        console.log("3");
-        return await this.meme(msg.author.avatarURL, './ahshit.png', 4);
+        return await this.memeOverlay(msg.author.avatarURL, './ahshit.png', 4);
+    },
+
+    memeHalf: async function (image1, image2, position) {
+        return await loadImage(image1).then(async (image) => {
+            return await loadImage(image2).then(async (meme) => {
+
+                switch(position) {
+                    case 1: var scale = image.width / meme.width;
+                            let canvas = createCanvas(image.width, image.height + meme.height * scale);
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(image, 0, meme.height * scale, image.width, image.height);
+                            ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
+                            break;
+                    case 2: var scale = image.height / meme.height;
+                            let canvas = createCanvas(image.width + meme.width * scale, image.height);
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(image, meme.width * scale, 0, image.width, image.height);
+                            ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
+                            break;
+                    case 3: var scale = image.width / meme.width;
+                            let canvas = createCanvas(image.width, image.height + meme.height * scale);
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(image, 0, 0, image.width, image.height);
+                            ctx.drawImage(meme, 0, image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                            break;
+                    case 4: var scale = image.height / meme.height;
+                            let canvas = createCanvas(image.width + meme.width * scale, image.height);
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(image, 0, 0, image.width, image.height);
+                            ctx.drawImage(meme, image.width, 0, meme.width * scale, meme.height * scale);
+                            break;
+                }
+
+                return await canvas.toBuffer();
+            })
+        })
     },
 
     protect: function (msg) {
+        console.log(log(msg));
+        var array = separate(msg.content);
+        array.splice(0, 1);
 
+        if (array[0]) {
+            if (msg.mentions.users.first()) {
+                return await this.memeHalf(msg.mentions.users.first().avatarURL, './protect.png', 3);
+            }
+            if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                return await this.memeHalf(array[0], './protect.png', 3);
+            }
+        }
+        if (msg.attachments.size > 0) {
+            if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                return await this.memeHalf(msg.attachments.first().url, './protect.png', 3);
+            }
+        }
+        return await this.memeHalf(msg.author.avatarURL, './protect.png', 3);
     },
 
 }

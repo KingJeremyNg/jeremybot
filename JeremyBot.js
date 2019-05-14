@@ -35,14 +35,16 @@ client.on("message", async msg => {
         case "!ROLL":   msg.channel.send(Commands.roll(msg));
                         break;
 
-        case "!PROTECT":msg.channel.sendFile(Commands.protect(msg));
-                        break;
+        case "!PROTECT":let buffer = await Commands.protect(msg);
+                        msg.channel.sendFile(buffer);
+                        msg.delete(15000);
 
         case "BOI":     msg.channel.sendFile(Commands.boi(msg));
                         break;
         
         case "!AHSHIT": let buffer = await Commands.ahshit(msg);
                         msg.channel.sendFile(buffer);
+                        msg.delete(15000);
                         break;
 
         case "!HELP":   break;
