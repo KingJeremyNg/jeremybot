@@ -92,13 +92,10 @@ module.exports = {
                 var scale = Math.min(image.height / meme.height, image.width / meme.width);
 
                 ctx.drawImage(meme, image.width - (meme.width * scale), image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                
                 return await canvas.toBuffer();
-
-                //var buffer = canvas.toBuffer();
-                //await fs.writeFileSync('ahshitmeme.png', buffer);
             })
         })
-        //return './ahshitmeme.png';
     },
 
     protect: function (msg) {

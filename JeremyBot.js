@@ -42,10 +42,8 @@ client.on("message", async msg => {
         case "BOI":     msg.channel.sendFile(Commands.boi(msg));
                         break;
         
-        case "!AHSHIT": //let attachment = new Discord.Attachment(Commands.ahshit(msg));
-                        let buffer = await Commands.ahshit(msg);
+        case "!AHSHIT": let buffer = await Commands.ahshit(msg);
                         msg.channel.sendFile(buffer);
-                        //fs.unlink('./ahshitmeme.png');
                         break;
 
         case "!HELP":   break;
