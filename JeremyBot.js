@@ -14,7 +14,7 @@ client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
-client.on("message", msg => {
+client.on("message", async msg => {
     var line = msg.content.match(/\S+/g) || []
     command = String(line[0]).toUpperCase();
     switch(command) {
@@ -43,7 +43,8 @@ client.on("message", msg => {
                         break;
         
         case "!AHSHIT": //let attachment = new Discord.Attachment(Commands.ahshit(msg));
-                        msg.channel.sendFile(Commands.ahshit(msg));
+                        let buffer = await Commands.ahshit(msg);
+                        msg.channel.sendFile(buffer);
                         //fs.unlink('./ahshitmeme.png');
                         break;
 
