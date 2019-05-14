@@ -1,0 +1,26 @@
+{
+  "name": "jeremy-bot",
+  "version": "1.0.0",
+  "description": "Discord bot",
+  "main": "Commands.js",
+  "dependencies": {
+    "canvas": "^2.5.0",
+    "discord.js": "^11.5.0",
+    "kitsu": "^7.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node JeremyBot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KingJeremyNg/Jeremy-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KingJeremyNg/Jeremy-Bot/issues"
+  },
+  "homepage": "https://github.com/KingJeremyNg/Jeremy-Bot#readme"
+}
