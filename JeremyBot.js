@@ -38,6 +38,7 @@ client.on("message", async msg => {
         case "!PROTECT":let buffer = await Commands.protect(msg);
                         msg.channel.sendFile(buffer);
                         msg.delete(15000);
+                        break;
 
         case "BOI":     msg.channel.sendFile(Commands.boi(msg));
                         break;
