@@ -9,6 +9,8 @@ const Commands = require("./Commands");
 var fs = require("fs");
 
 var token = process.env.TOKEN;
+var port = process.env.PORT || 3000;
+var host = process.env.HOST || "0.0.0.0";
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
