@@ -54,6 +54,7 @@ module.exports = {
             random = randomInt(0, 1);
             random ? string += temp[char].toUpperCase() : string += temp[char].toLowerCase();
         }
+        string = msg.author.tag + ": " + string
         return string;
     },
 
