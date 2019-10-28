@@ -29,21 +29,19 @@ client.on("message", async msg => {
                         break;
 
         case "!MOCK":   msg.channel.send(Commands.mock(msg));
-                        msg.delete(5000);
+                        msg.delete(2000);
                         break;
 
         case "!ROLL":   msg.channel.send(Commands.roll(msg));
                         break;
 
         case "!PROTECT":msg.channel.sendFile(await Commands.protect(msg));
-                        msg.delete(15000);
                         break;
 
         case "BOI":     msg.channel.sendFile(Commands.boi(msg));
                         break;
         
         case "!AHSHIT": msg.channel.sendFile(await Commands.ahshit(msg));
-                        msg.delete(15000);
                         break;
 
         case "!HELP":   break;

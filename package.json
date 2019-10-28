@@ -5,7 +5,7 @@
   "main": "Commands.js",
   "dependencies": {
     "canvas": "^2.5.0",
-    "discord.js": "^11.5.0",
+    "discord.js": "^11.5.1",
     "dotenv": "^8.0.0",
     "hapi": "^18.1.0",
     "kitsu": "^7.0.3"
