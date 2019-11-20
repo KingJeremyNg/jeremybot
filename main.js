@@ -21,7 +21,7 @@ client.on("message", async msg => {
         case "COOKIE":  msg.channel.send(Commands.cookie(msg));
                         break;
 
-        case "YAR":     msg.channel.sendFile(Commands.yar(msg));
+        case "YAR":     msg.channel.send(Commands.yar(msg));
                         break;
 
         case "!PING":   msg.reply(Commands.ping(msg));

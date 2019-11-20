@@ -1,4 +1,5 @@
 const { createCanvas, loadImage } = require("canvas");
+const fs = require("fs");
 
 function log(msg) {
     return (msg.guild + " | " + msg.author.tag + " | " + msg.content);
@@ -23,7 +24,13 @@ module.exports = {
 
     yar: function (msg) {
         console.log(log(msg));
-        return './content/yar.txt';
+        fs.readFile("./content/yar.txt", function read(err, data) {
+            if (err) {
+                throw err;
+            }
+            let content = data;
+            return content;
+        })
     },
 
     ping: function (msg) {
