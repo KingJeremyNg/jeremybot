@@ -75,7 +75,7 @@ module.exports = {
 
     boi: function (msg) {
         console.log(log(msg));
-        return ('./boi.png');
+        return ('./imgs/boi.png');
     },
 
     memeOverlay: async function (image1, image2, position) {
@@ -110,18 +110,18 @@ module.exports = {
         
         if (array[0]) {
             if (msg.mentions.users.first()) {
-                return await this.memeOverlay(msg.mentions.users.first().avatarURL, './ahshit.png', 4);
+                return await this.memeOverlay(msg.mentions.users.first().avatarURL, './imgs/ahshit.png', 4);
             }
             if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                return await this.memeOverlay(array[0], './ahshit.png', 4);
+                return await this.memeOverlay(array[0], './imgs/ahshit.png', 4);
             }
         }
         if (msg.attachments.size > 0) {
             if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                return await this.memeOverlay(msg.attachments.first().url, './ahshit.png', 4);
+                return await this.memeOverlay(msg.attachments.first().url, './imgs/ahshit.png', 4);
             }
         }
-        return await this.memeOverlay(msg.author.avatarURL, './ahshit.png', 4);
+        return await this.memeOverlay(msg.author.avatarURL, './imgs/ahshit.png', 4);
     },
 
     memeHalf: async function (image1, image2, position) {
@@ -167,10 +167,10 @@ module.exports = {
 
         if (array[0]) {
             if (msg.mentions.users.first()) {
-                return await this.memeHalf(msg.mentions.users.first().avatarURL, './protect.png', 3);
+                return await this.memeHalf(msg.mentions.users.first().avatarURL, './imgs/protect.png', 3);
             }
             if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                return await this.memeHalf(array[0], './protect.png', 3);
+                return await this.memeHalf(array[0], './imgs/protect.png', 3);
             }
         }
         if (msg.attachments.size > 0) {
@@ -178,7 +178,7 @@ module.exports = {
                 return await this.memeHalf(msg.attachments.first().url, './protect.png', 3);
             }
         }
-        return await this.memeHalf(msg.author.avatarURL, './protect.png', 3);
+        return await this.memeHalf(msg.author.avatarURL, './imgs/protect.png', 3);
     },
 
 }
