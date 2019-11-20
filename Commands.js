@@ -23,7 +23,7 @@ module.exports = {
 
     yar: function (msg) {
         console.log(log(msg));
-        return "YARFILE";
+        return './content/yar.txt';
     },
 
     ping: function (msg) {
@@ -175,7 +175,7 @@ module.exports = {
         }
         if (msg.attachments.size > 0) {
             if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
-                return await this.memeHalf(msg.attachments.first().url, './protect.png', 3);
+                return await this.memeHalf(msg.attachments.first().url, './imgs/protect.png', 3);
             }
         }
         return await this.memeHalf(msg.author.avatarURL, './imgs/protect.png', 3);

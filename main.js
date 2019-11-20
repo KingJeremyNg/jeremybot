@@ -6,6 +6,8 @@ const kitsuAPI = new Kitsu();
 
 const Commands = require("./commands");
 
+require('dotenv').config();
+
 var token = process.env.TOKEN;
 
 client.on("ready", () => {

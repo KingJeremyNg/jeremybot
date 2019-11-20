@@ -1,31 +1,31 @@
 {
-  "name": "jeremy-bot",
+  "name": "jeremybot",
   "version": "1.0.0",
   "description": "Discord bot",
-  "main": "Commands.js",
+  "main": "main.js",
   "dependencies": {
-    "canvas": "^2.5.0",
+    "canvas": "^2.6.0",
     "discord.js": "^11.5.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "hapi": "^18.1.0",
-    "kitsu": "^7.0.3"
+    "kitsu": "^7.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node JeremyBot.js",
-    "dev": "nodemon JeremyBot.js"
+    "start": "node main.js",
+    "dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KingJeremyNg/Jeremy-Bot.git"
+    "url": "git+https://github.com/KingJeremyNg/jeremybot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KingJeremyNg/Jeremy-Bot/issues"
+    "url": "https://github.com/KingJeremyNg/jeremybot/issues"
   },
-  "homepage": "https://github.com/KingJeremyNg/Jeremy-Bot#readme",
+  "homepage": "https://github.com/KingJeremyNg/jeremybot#readme",
   "devDependencies": {
-    "nodemon": "^1.19.0"
+    "nodemon": "^1.19.4"
   }
 }
