@@ -24,13 +24,7 @@ module.exports = {
 
     yar: function (msg) {
         console.log(log(msg));
-        fs.readFile("./content/yar.txt", function read(err, data) {
-            if (err) {
-                throw err;
-            }
-            let content = data;
-            return content;
-        })
+        return "Do what you want cause a pirate is free, you are a pirate!\nYarr har fiddle dee dee\nBeing a pirate is alright to be\nDo what you want cause a pirate is free\nYou are a pirate!";
     },
 
     ping: function (msg) {
@@ -187,5 +181,26 @@ module.exports = {
         }
         return await this.memeHalf(msg.author.avatarURL, './imgs/protect.png', 3);
     },
+
+    wantOneThing: async function (msg) {
+        console.log(log(msg));
+        var array = separate(msg.content);
+        array.splice(0, 1);
+
+        if (array[0]) {
+            if (msg.mentions.users.first()) {
+                return await this.memeHalf(msg.mentions.users.first().avatarURL, './imgs/wantOneThing.png', 1);
+            }
+            if (array[0].match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                return await this.memeHalf(array[0], './imgs/wantOneThing.png', 1);
+            }
+        }
+        if (msg.attachments.size > 0) {
+            if (msg.attachments.first().url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                return await this.memeHalf(msg.attachments.first().url, './imgs/wantOneThing.png', 1);
+            }
+        }
+        return await this.memeHalf(msg.author.avatarURL, './imgs/wantOneThing.png', 1);
+    }
 
 }

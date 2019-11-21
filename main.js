@@ -40,10 +40,13 @@ client.on("message", async msg => {
         case "!PROTECT":msg.channel.sendFile(await Commands.protect(msg));
                         break;
 
-        case "BOI":     msg.channel.sendFile(Commands.boi(msg));
+        case "BOI":     msg.channel.sendFile(await Commands.boi(msg));
                         break;
         
         case "!AHSHIT": msg.channel.sendFile(await Commands.ahshit(msg));
+                        break;
+        
+        case "!WANT":   msg.channel.sendFile(await Commands.wantOneThing(msg));
                         break;
 
         case "!HELP":   break;
