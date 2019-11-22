@@ -48,11 +48,16 @@ client.on("message", async msg => {
         
         case "!WANT":   msg.channel.sendFile(await Commands.wantOneThing(msg));
                         break;
-
-        case "!HELP":   break;
+        
+        case "!DISTRACTED":msg.channel.sendFile(await Commands.distracted(msg));
+                        break;
 
         case "!QUIT":   client.user.setPresence({status: 'offline'});
                         Commands.shutdown(msg);
+    }
+    
+    if (msg.content.startsWith("<@490537758419582976>")) {
+        msg.channel.send(Commands.help(msg));
     }
 });
 
