@@ -20,7 +20,7 @@ function randomInt(min, max) {
 
 function help(msg) {
     console.log(log(msg));
-    return "`COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted`";
+    return "`COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted !doubt`";
 };
 
 function shutdown(msg) {
@@ -249,6 +249,27 @@ async function distracted(msg) {
     return await memeWindow(msg.author.avatarURL, './imgs/distracted.png', 190, 135, 200);
 };
 
+async function doubt(msg) {
+    console.log(log(msg));
+    let array = separate(msg.content);
+    array.splice(0, 1);
+
+    if (array[0]) {
+        if (msg.mentions.users.first()) {
+            return await memeHalf(msg.mentions.users.first().avatarURL, './imgs/doubt.png', 3);
+        }
+        if (array[0].match(regex) != null) {
+            return await memeHalf(array[0], './imgs/doubt.png', 3);
+        }
+    }
+    if (msg.attachments.size > 0) {
+        if (msg.attachments.first().url.match(regex) != null) {
+            return await memeHalf(msg.attachments.first().url, './imgs/doubt.png', 3);
+        }
+    }
+    return await memeHalf(msg.author.avatarURL, './imgs/doubt.png', 3);
+}
+
 module.exports = {
     help: help,
     shutdown: shutdown,
@@ -263,4 +284,5 @@ module.exports = {
     ahshit: ahshit,
     wantOneThing: wantOneThing,
     distracted: distracted,
+    doubt: doubt,
 };
