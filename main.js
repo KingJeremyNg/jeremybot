@@ -66,6 +66,10 @@ client.on("message", async msg => {
         case "!DOUBT":
             msg.channel.sendFile(await Commands.doubt(msg));
             break;
+        
+        case "!TEAM":
+            msg.channel.send(Commands.team(msg, client));
+            break;
     }
 
     if (msg.content.startsWith("<@490537758419582976> stop")) {

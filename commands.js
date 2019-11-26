@@ -6,49 +6,49 @@ var regex = new RegExp(urlExpression);
 
 function log(msg) {
     return (msg.guild + " | " + msg.author.tag + " | " + msg.content);
-};
+}
 
 function separate(string) {
     return string.match(/\S+/g) || []
-};
+}
 
 function randomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
 
 function help(msg) {
     console.log(log(msg));
-    return "`COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted !doubt`";
-};
+    return "`COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted !doubt !team`";
+}
 
 function shutdown(msg) {
     console.log(log(msg));
     process.exit();
-};
+}
 
 function cookie(msg) {
     console.log(log(msg));
     return ":cookie:";
-};
+}
 
 function yar(msg) {
     console.log(log(msg));
     return "Do what you want cause a pirate is free, you are a pirate!\nYarr har fiddle dee dee\nBeing a pirate is alright to be\nDo what you want cause a pirate is free\nYou are a pirate!";
-};
+}
 
 function ping(msg) {
     console.log(log(msg));
     return "Pong!"
-};
+}
 
 function say(msg) {
     console.log(log(msg));
     let array = separate(msg.content);
     array.splice(0, 1);
     return array.join(" ");
-};
+}
 
 function mock(msg) {
     console.log(log(msg));
@@ -63,7 +63,7 @@ function mock(msg) {
     }
     string = msg.author.tag + ": " + string
     return string;
-};
+}
 
 function roll(msg) {
     console.log(log(msg));
@@ -78,12 +78,12 @@ function roll(msg) {
         }
         default: return `You rolled ${randomInt(1, 6)}`;
     }
-};
+}
 
 function boi(msg) {
     console.log(log(msg));
     return ('./imgs/boi.png');
-};
+}
 
 async function memeOverlay(image1, image2, position) {
     return await loadImage(image1).then(async (image) => {
@@ -108,7 +108,7 @@ async function memeOverlay(image1, image2, position) {
             return await canvas.toBuffer();
         })
     })
-};
+}
 
 async function ahshit(msg) {
     console.log(log(msg));
@@ -129,7 +129,7 @@ async function ahshit(msg) {
         }
     }
     return await memeOverlay(msg.author.avatarURL, './imgs/ahshit.png', 4);
-};
+}
 
 async function memeHalf(image1, image2, position) {
     return await loadImage(image1).then(async (image) => {
@@ -165,7 +165,7 @@ async function memeHalf(image1, image2, position) {
             return await canvas.toBuffer();
         })
     })
-};
+}
 
 async function protect(msg) {
     console.log(log(msg));
@@ -186,7 +186,7 @@ async function protect(msg) {
         }
     }
     return await memeHalf(msg.author.avatarURL, './imgs/protect.png', 3);
-};
+}
 
 async function wantOneThing(msg) {
     console.log(log(msg));
@@ -207,7 +207,7 @@ async function wantOneThing(msg) {
         }
     }
     return await memeHalf(msg.author.avatarURL, './imgs/wantOneThing.png', 1);
-};
+}
 
 async function memeWindow(image1, image2, x, y, widthSize) {
     return await loadImage(image1).then(async (image) => {
@@ -226,7 +226,7 @@ async function memeWindow(image1, image2, x, y, widthSize) {
             return await canvas.toBuffer();
         })
     })
-};
+}
 
 async function distracted(msg) {
     console.log(log(msg));
@@ -247,7 +247,7 @@ async function distracted(msg) {
         }
     }
     return await memeWindow(msg.author.avatarURL, './imgs/distracted.png', 190, 135, 200);
-};
+}
 
 async function doubt(msg) {
     console.log(log(msg));
@@ -270,6 +270,59 @@ async function doubt(msg) {
     return await memeHalf(msg.author.avatarURL, './imgs/doubt.png', 3);
 }
 
+function team(msg, client) {
+    console.log(log(msg));
+    let array = separate(msg.content);
+    array.splice(0, 1);
+    let team1 = [];
+    let team2 = [];
+
+    if (array.length == 0) {
+        return "Input something";
+    }
+
+    array = shuffle(array);
+
+    array.forEach(element => {
+        if (element.includes("!")) {
+            element = client.users.get(element.split("!")[1].split(">")[0]).username;
+        }
+        if (team1.length >= array.length / 2) {
+            team2.push(element);
+        }
+        else if (team2.length >= array.length / 2) {
+            team1.push(element);
+        }
+        else if (randomInt(0, 1)) {
+            team1.push(element);
+        }
+        else {
+            team2.push(element);
+        }
+    })
+
+    return "```Team 1: " + team1.join(" | ") + "\n" + "Team 2: " + team2.join(" | ") + "```";
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
 module.exports = {
     help: help,
     shutdown: shutdown,
@@ -285,4 +338,5 @@ module.exports = {
     wantOneThing: wantOneThing,
     distracted: distracted,
     doubt: doubt,
+    team: team,
 };
