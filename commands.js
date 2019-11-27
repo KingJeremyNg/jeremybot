@@ -20,7 +20,7 @@ function randomInt(min, max) {
 
 function help(msg) {
     console.log(log(msg));
-    return "`COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted !doubt !team`";
+    return "```COMMANDS: cookie yar !ping !mock !roll !protect boi !ahshit !want !distracted !doubt !team```";
 }
 
 function shutdown(msg) {
@@ -95,14 +95,18 @@ async function memeOverlay(image1, image2, position) {
             let scale = Math.min(image.height / meme.height, image.width / meme.width);
 
             switch (position) {
-                case 1: ctx.drawImage(meme, image.width - (meme.width * scale), 0, meme.width * scale, meme.height * scale);
-                        break;
-                case 2: ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
-                        break;
-                case 3: ctx.drawImage(meme, 0, image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
-                        break;
-                case 4: ctx.drawImage(meme, image.width - (meme.width * scale), image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
-                        break;
+                case 1:
+                    ctx.drawImage(meme, image.width - (meme.width * scale), 0, meme.width * scale, meme.height * scale);
+                    break;
+                case 2:
+                    ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
+                    break;
+                case 3:
+                    ctx.drawImage(meme, 0, image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                    break;
+                case 4:
+                    ctx.drawImage(meme, image.width - (meme.width * scale), image.height - (meme.height * scale), meme.width * scale, meme.height * scale);
+                    break;
             }
 
             return await canvas.toBuffer();
@@ -136,30 +140,34 @@ async function memeHalf(image1, image2, position) {
         return await loadImage(image2).then(async (meme) => {
             let scale = 0;
             switch (position) {
-                case 1: scale = image.width / meme.width;
-                        canvas = createCanvas(image.width, image.height + meme.height * scale);
-                        ctx = canvas.getContext('2d');
-                        ctx.drawImage(image, 0, meme.height * scale, image.width, image.height);
-                        ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
-                        break;
-                case 2: scale = image.height / meme.height;
-                        canvas = createCanvas(image.width + meme.width * scale, image.height);
-                        ctx = canvas.getContext('2d');
-                        ctx.drawImage(image, meme.width * scale, 0, image.width, image.height);
-                        ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
-                        break;
-                case 3: scale = image.width / meme.width;
-                        canvas = createCanvas(image.width, image.height + meme.height * scale);
-                        ctx = canvas.getContext('2d');
-                        ctx.drawImage(image, 0, 0, image.width, image.height);
-                        ctx.drawImage(meme, 0, image.height, meme.width * scale, meme.height * scale);
+                case 1:
+                    scale = image.width / meme.width;
+                    canvas = createCanvas(image.width, image.height + meme.height * scale);
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, meme.height * scale, image.width, image.height);
+                    ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
                     break;
-                case 4: scale = image.height / meme.height;
-                        canvas = createCanvas(image.width + meme.width * scale, image.height);
-                        ctx = canvas.getContext('2d');
-                        ctx.drawImage(image, 0, 0, image.width, image.height);
-                        ctx.drawImage(meme, image.width, 0, meme.width * scale, meme.height * scale);
-                        break;
+                case 2:
+                    scale = image.height / meme.height;
+                    canvas = createCanvas(image.width + meme.width * scale, image.height);
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, meme.width * scale, 0, image.width, image.height);
+                    ctx.drawImage(meme, 0, 0, meme.width * scale, meme.height * scale);
+                    break;
+                case 3:
+                    scale = image.width / meme.width;
+                    canvas = createCanvas(image.width, image.height + meme.height * scale);
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, 0, image.width, image.height);
+                    ctx.drawImage(meme, 0, image.height, meme.width * scale, meme.height * scale);
+                    break;
+                case 4:
+                    scale = image.height / meme.height;
+                    canvas = createCanvas(image.width + meme.width * scale, image.height);
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, 0, image.width, image.height);
+                    ctx.drawImage(meme, image.width, 0, meme.width * scale, meme.height * scale);
+                    break;
             }
 
             return await canvas.toBuffer();
@@ -306,18 +314,18 @@ function team(msg, client) {
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
 
     return array;

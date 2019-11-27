@@ -73,7 +73,7 @@ client.on("message", async msg => {
     }
 
     if (msg.content.startsWith("<@490537758419582976> stop")) {
-        client.user.setPresence({ status: 'offline' });
+        await client.user.setPresence({ status: 'offline' });
         Commands.shutdown(msg);
     }
 
