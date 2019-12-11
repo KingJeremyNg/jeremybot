@@ -1,4 +1,4 @@
-const { createCanvas, loadImage } = require("canvas");
+const { createCanvas, loadImage, registerFont } = require("canvas");
 const fs = require("fs");
 
 var urlExpression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
@@ -50,7 +50,20 @@ function say(msg) {
     return array.join(" ");
 }
 
-function mock(msg) {
+async function textOverlay(image1, text) {
+    return await loadImage(image1).then(async (image) => {
+        textScale = image.height / 10;
+        canvas = createCanvas(image.width, image.height);
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        ctx.font = `${textScale}px Arial`;
+        ctx.textAlign = "center";
+        ctx.fillText(text, image.width / 2, image.height / 5);
+        return await canvas.toBuffer();
+    })
+}
+
+async function mock(msg) {
     console.log(log(msg));
     let array = separate(msg.content);
     array.splice(0, 1);
@@ -61,8 +74,8 @@ function mock(msg) {
         random = randomInt(0, 1);
         random ? string += temp[char].toUpperCase() : string += temp[char].toLowerCase();
     }
-    string = msg.author.tag + ": " + string
-    return string;
+    
+    return await textOverlay('./imgs/mocking-spongebob.png', string);
 }
 
 function roll(msg) {
@@ -347,4 +360,4 @@ module.exports = {
     distracted: distracted,
     doubt: doubt,
     team: team,
-};
+}

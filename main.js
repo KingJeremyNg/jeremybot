@@ -35,8 +35,7 @@ client.on("message", async msg => {
             break;
 
         case "!MOCK":
-            msg.channel.send(Commands.mock(msg));
-            msg.delete(2000);
+            msg.channel.sendFile(await Commands.mock(msg));
             break;
 
         case "!ROLL":
