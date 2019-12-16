@@ -18,6 +18,19 @@ client.on("message", async msg => {
     var line = msg.content.match(/\S+/g) || []
     command = String(line[0]).toUpperCase();
     switch (command) {
+        case "!HELP":
+            msg.channel.send(Commands.help(msg));
+            break;
+
+        case "!STOP":
+            msg.channel.send("Shutting Down...").then(m => {
+                Commands.shutdown(msg)
+                client.user.setStatus('offline');
+                client.destroy();
+                process.exit();
+            })
+            break;
+
         case "COOKIE":
             msg.channel.send(Commands.cookie(msg));
             break;
@@ -65,19 +78,10 @@ client.on("message", async msg => {
         case "!DOUBT":
             msg.channel.sendFile(await Commands.doubt(msg));
             break;
-        
+
         case "!TEAM":
             msg.channel.send(Commands.team(msg, client));
             break;
-    }
-
-    if (msg.content.startsWith("<@490537758419582976> stop")) {
-        await client.user.setPresence({ status: 'offline' });
-        Commands.shutdown(msg);
-    }
-
-    if (msg.content.startsWith("<@490537758419582976>")) {
-        msg.channel.send(Commands.help(msg));
     }
 });
 

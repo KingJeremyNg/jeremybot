@@ -25,7 +25,6 @@ function help(msg) {
 
 function shutdown(msg) {
     console.log(log(msg));
-    process.exit();
 }
 
 function cookie(msg) {
@@ -53,7 +52,6 @@ function say(msg) {
 async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
     return await loadImage(image1).then(async (image) => {
         let textScale = image.height / 10;
-        let length = text.length;
         let lineCharacters = parseInt((image.width - image.width / 10) / textScale) * 2;
 
         canvas = createCanvas(image.width, image.height);
@@ -71,30 +69,24 @@ async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
             let temp = [];
             let index = 0;
             let characters = 0;
-            array.forEach(element => {
-                characters += element.length;
-                if (element.length > lineCharacters || characters <= lineCharacters) {
-                    temp.push(element);
-                    index ++;
+
+            for (let i = 0; i < array.length; i++) {
+                characters += array[i].length;
+                if (characters <= lineCharacters || array[i].length > lineCharacters) {
+                    temp.push(array[i]);
+                    index++;
                 }
-            })
+                else {
+                    break;
+                }
+            }
 
             array = array.slice(index);
 
             ctx.strokeText(temp.join(" "), image.width / 2, (image.height / 6) * count);
             ctx.fillText(temp.join(" "), image.width / 2, (image.height / 6) * count);
-            length -= lineCharacters;
-            text = text.slice(lineCharacters);
-            count ++;
+            count++;
         }
-
-        // while (length > 0) {
-        //     ctx.strokeText(text.substring(0, lineCharacters), image.width / 2, (image.height / 6) * count);
-        //     ctx.fillText(text.substring(0, lineCharacters), image.width / 2, (image.height / 6) * count);
-        //     length -= lineCharacters;
-        //     text = text.slice(lineCharacters);
-        //     count ++;
-        // }
 
         return await canvas.toBuffer();
     })
