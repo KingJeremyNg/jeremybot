@@ -50,15 +50,52 @@ function say(msg) {
     return array.join(" ");
 }
 
-async function textOverlay(image1, text) {
+async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
     return await loadImage(image1).then(async (image) => {
-        textScale = image.height / 10;
+        let textScale = image.height / 10;
+        let length = text.length;
+        let lineCharacters = parseInt((image.width - image.width / 10) / textScale) * 2;
+
         canvas = createCanvas(image.width, image.height);
         let ctx = canvas.getContext('2d');
         ctx.drawImage(image, 0, 0, image.width, image.height);
-        ctx.font = `${textScale}px Arial`;
+        ctx.font = `${textScale}px Impact`;
         ctx.textAlign = "center";
-        ctx.fillText(text, image.width / 2, image.height / 5);
+        ctx.fillStyle = fillColor;
+        ctx.strokeStyle = borderColor;
+        ctx.lineWidth = strokeWidth;
+
+        let count = 1;
+        let array = text.split(" ");
+        while (array.length >= 1) {
+            let temp = [];
+            let index = 0;
+            let characters = 0;
+            array.forEach(element => {
+                characters += element.length;
+                if (element.length > lineCharacters || characters <= lineCharacters) {
+                    temp.push(element);
+                    index ++;
+                }
+            })
+
+            array = array.slice(index);
+
+            ctx.strokeText(temp.join(" "), image.width / 2, (image.height / 6) * count);
+            ctx.fillText(temp.join(" "), image.width / 2, (image.height / 6) * count);
+            length -= lineCharacters;
+            text = text.slice(lineCharacters);
+            count ++;
+        }
+
+        // while (length > 0) {
+        //     ctx.strokeText(text.substring(0, lineCharacters), image.width / 2, (image.height / 6) * count);
+        //     ctx.fillText(text.substring(0, lineCharacters), image.width / 2, (image.height / 6) * count);
+        //     length -= lineCharacters;
+        //     text = text.slice(lineCharacters);
+        //     count ++;
+        // }
+
         return await canvas.toBuffer();
     })
 }
@@ -74,8 +111,8 @@ async function mock(msg) {
         random = randomInt(0, 1);
         random ? string += temp[char].toUpperCase() : string += temp[char].toLowerCase();
     }
-    
-    return await textOverlay('./imgs/mocking-spongebob.png', string);
+
+    return await textOverlay('./imgs/mocking-spongebob.png', string, "#FFFFFF", "#000000", 10);
 }
 
 function roll(msg) {

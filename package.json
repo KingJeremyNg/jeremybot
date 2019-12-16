@@ -7,7 +7,6 @@
     "canvas": "^2.6.0",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "hapi": "^18.1.0",
     "kitsu": "^7.3.0"
   },
   "scripts": {
