@@ -63,7 +63,8 @@ async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = strokeWidth;
 
-        let count = 1;
+        let lines = 1;
+        let count = 0;
         let array = text.split(" ");
         while (array.length >= 1) {
             let temp = [];
@@ -72,9 +73,10 @@ async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
 
             for (let i = 0; i < array.length; i++) {
                 characters += array[i].length;
-                if (characters <= lineCharacters || array[i].length > lineCharacters) {
+                if (characters + count <= lineCharacters || array[i].length > lineCharacters) {
                     temp.push(array[i]);
                     index++;
+                    count++;
                 }
                 else {
                     break;
@@ -83,9 +85,9 @@ async function textOverlay(image1, text, fillColor, borderColor, strokeWidth) {
 
             array = array.slice(index);
 
-            ctx.strokeText(temp.join(" "), image.width / 2, (image.height / 6) * count);
-            ctx.fillText(temp.join(" "), image.width / 2, (image.height / 6) * count);
-            count++;
+            ctx.strokeText(temp.join(" "), image.width / 2, (image.height / 6) * lines);
+            ctx.fillText(temp.join(" "), image.width / 2, (image.height / 6) * lines);
+            lines++;
         }
 
         return await canvas.toBuffer();
