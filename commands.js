@@ -375,6 +375,11 @@ function shuffle(array) {
     return array;
 }
 
+function bullshit(msg) {
+    console.log(log(msg));
+    return ('./imgs/bullshit.png');
+}
+
 module.exports = {
     help: help,
     shutdown: shutdown,
@@ -391,4 +396,5 @@ module.exports = {
     distracted: distracted,
     doubt: doubt,
     team: team,
+    bullshit: bullshit,
 }

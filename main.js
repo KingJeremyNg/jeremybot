@@ -60,7 +60,7 @@ client.on("message", async msg => {
             break;
 
         case "BOI":
-            msg.channel.sendFile(await Commands.boi(msg));
+            msg.channel.sendFile(Commands.boi(msg));
             break;
 
         case "!AHSHIT":
@@ -82,6 +82,9 @@ client.on("message", async msg => {
         case "!TEAM":
             msg.channel.send(Commands.team(msg, client));
             break;
+        
+        case "bullshit":
+            msg.channel.sendFile(Commands.bullshit(msg));
     }
 });
 
