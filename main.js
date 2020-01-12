@@ -1,13 +1,21 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client();
 
 // const Kitsu = require("kitsu");
 // const kitsuAPI = new Kitsu();
 
-const Commands = require("./commands");
+var glob = require('glob');
+var path = require('path');
+var functions = {};
+glob.sync('./src/functions/*.js').forEach(function(file) {
+    let object = require(path.resolve(file));
+    functions = {
+        ...functions,
+        ...object,
+    };
+});
 
 require('dotenv').config();
-
 var token = process.env.TOKEN;
 
 client.on("ready", () => {
@@ -15,16 +23,16 @@ client.on("ready", () => {
 });
 
 client.on("message", async msg => {
-    var line = msg.content.match(/\S+/g) || []
-    command = String(line[0]).toUpperCase();
+    let line = msg.content.match(/\S+/g) || [];
+    let command = String(line[0]).toUpperCase();
     switch (command) {
         case "!HELP":
-            msg.channel.send(Commands.help(msg));
+            msg.channel.send(functions.help(msg));
             break;
 
         case "!STOP":
             msg.channel.send("Shutting Down...").then(m => {
-                Commands.shutdown(msg)
+                functions.shutdown(msg)
                 client.user.setStatus('offline');
                 client.destroy();
                 process.exit();
@@ -32,59 +40,59 @@ client.on("message", async msg => {
             break;
 
         case "COOKIE":
-            msg.channel.send(Commands.cookie(msg));
+            msg.channel.send(functions.cookie(msg));
             break;
 
         case "YAR":
-            msg.channel.send(Commands.yar(msg));
+            msg.channel.send(functions.yar(msg));
             break;
 
         case "!PING":
-            msg.reply(Commands.ping(msg));
+            msg.reply(functions.ping(msg));
             break;
 
         case "!SAY":
-            msg.channel.send(Commands.say(msg));
+            msg.channel.send(functions.say(msg));
             break;
 
         case "!MOCK":
-            msg.channel.sendFile(await Commands.mock(msg));
+            msg.channel.sendFile(await functions.mock(msg));
             break;
 
         case "!ROLL":
-            msg.channel.send(Commands.roll(msg));
+            msg.channel.send(functions.roll(msg));
             break;
 
         case "!PROTECT":
-            msg.channel.sendFile(await Commands.protect(msg));
+            msg.channel.sendFile(await functions.protect(msg));
             break;
 
         case "BOI":
-            msg.channel.sendFile(Commands.boi(msg));
+            msg.channel.sendFile(functions.boi(msg));
             break;
 
         case "!AHSHIT":
-            msg.channel.sendFile(await Commands.ahshit(msg));
+            msg.channel.sendFile(await functions.ahshit(msg));
             break;
 
         case "!WANT":
-            msg.channel.sendFile(await Commands.wantOneThing(msg));
+            msg.channel.sendFile(await functions.wantOneThing(msg));
             break;
 
         case "!DISTRACTED":
-            msg.channel.sendFile(await Commands.distracted(msg));
+            msg.channel.sendFile(await functions.distracted(msg));
             break;
 
         case "!DOUBT":
-            msg.channel.sendFile(await Commands.doubt(msg));
+            msg.channel.sendFile(await functions.doubt(msg));
             break;
 
         case "!TEAM":
-            msg.channel.send(Commands.team(msg, client));
+            msg.channel.send(functions.team(msg, client));
             break;
         
-        case "bullshit":
-            msg.channel.sendFile(Commands.bullshit(msg));
+        case "BULLSHIT":
+            msg.channel.sendFile(functions.bullshit(msg));
     }
 });
 
