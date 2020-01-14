@@ -17,8 +17,13 @@ function team(msg, client) {
     array = shuffle(array);
 
     array.forEach(element => {
-        if (element.includes("!")) {
-            element = client.users.get(element.split("!")[1].split(">")[0]).username;
+        let id = client.users.get(element.split("!")[1].split(">")[0]);
+        if (id) {
+            let guild = msg.guild;
+            element = guild.member(id).nickname
+            if (element == null) {
+                element = id.username;
+            }
         }
         if (team1.length >= array.length / 2) {
             team2.push(element);
