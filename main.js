@@ -7,7 +7,7 @@ const client = new Discord.Client();
 var glob = require('glob');
 var path = require('path');
 var functions = {};
-glob.sync('./src/functions/*.js').forEach(function(file) {
+glob.sync('./src/functions/*.js').forEach(function (file) {
     let object = require(path.resolve(file));
     functions = {
         ...functions,
@@ -90,9 +90,15 @@ client.on("message", async msg => {
         case "!TEAM":
             msg.channel.send(functions.team(msg, client));
             break;
-        
+
         case "BULLSHIT":
             msg.channel.sendFile(functions.bullshit(msg));
+        
+        case "!WHOAMI":
+            msg.channel.send(functions.whoami(msg, client));
+
+        case "!WHERE":
+            msg.channel.sendFile(functions.whereIsEveryone(msg));
     }
 });
 

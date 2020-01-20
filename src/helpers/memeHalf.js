@@ -8,7 +8,7 @@ async function memeHalf(image1, image2, position) {
             let ctx = canvas.getContext('2d');
 
             switch (position) {
-                
+
                 case 1:
                     scale = image.width / meme.width;
                     canvas = createCanvas(image.width, image.height + meme.height * scale);
