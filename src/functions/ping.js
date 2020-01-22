@@ -1,8 +1,12 @@
 import { log } from '../helpers/log';
 
-function ping(msg) {
+function ping(msg, args) {
     console.log(log(msg));
-    return "Pong!"
+    msg.channel.send("Pong!");
 }
 
-export { ping };
+export default {
+    name: '!ping',
+    description: '> Usage:\n!ping',
+    execute: ping,
+};

@@ -1,8 +1,12 @@
 import { log } from '../helpers/log';
 
-function cookie(msg) {
+function cookie(msg, args) {
     console.log(log(msg));
-    return ":cookie:";
+    msg.channel.send(":cookie:");
 }
 
-export { cookie };
+export default {
+    name: 'cookie',
+    description: '> Usage:\njust type cookie',
+    execute: cookie,
+};

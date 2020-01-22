@@ -1,10 +1,12 @@
 import { log } from '../helpers/log';
 
-function say(msg) {
+function say(msg, args) {
     console.log(log(msg));
-    let array = separate(msg.content);
-    array.splice(0, 1);
-    return array.join(" ");
+    msg.channel.send(args.join(" "));
 }
 
-export { say };
+export default {
+    name: '!say',
+    description: '> Usage:\n!say [something]',
+    execute: say,
+};

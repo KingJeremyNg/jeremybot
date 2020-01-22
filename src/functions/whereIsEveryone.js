@@ -1,8 +1,12 @@
 import { log } from '../helpers/log';
 
-function whereIsEveryone(msg) {
+function whereIsEveryone(msg, args) {
     console.log(log(msg));
-    return ('./src/gifs/whereIsEveryone.gif');
+    msg.channel.sendFile('./src/gifs/whereIsEveryone.gif');
 }
 
-export { whereIsEveryone };
+export default {
+    name: '!where',
+    description: '> Usage:\n!where',
+    execute: whereIsEveryone,
+};

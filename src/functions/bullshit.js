@@ -1,8 +1,12 @@
 import { log } from '../helpers/log';
 
-function bullshit(msg) {
+function bullshit(msg, args) {
     console.log(log(msg));
-    return ('./src/imgs/bullshit.png');
+    msg.channel.sendFile('./src/imgs/bullshit.png');
 }
 
-export { bullshit };
+export default {
+    name: 'bullshit',
+    description: '> Usage:\njust type bullshit',
+    execute: bullshit,
+};

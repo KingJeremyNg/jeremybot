@@ -1,34 +1,32 @@
 import { shuffle } from '../helpers/shuffle';
 import { log } from '../helpers/log';
-import { separate } from '../helpers/separate';
 import { randomInt } from '../helpers/randomInt';
 
-function team(msg, client) {
+function team(msg, args, client) {
     console.log(log(msg));
-    let array = separate(msg.content);
-    array.splice(0, 1);
+
     let team1 = [];
     let team2 = [];
 
-    if (array.length == 0) {
+    if (args.length == 0) {
         return "Input something";
     }
 
-    array = shuffle(array);
+    args = shuffle(args);
 
-    array.forEach(element => {
-        let id = client.users.get(element.split("!")[1].split(">")[0]);
-        if (id) {
+    args.forEach(element => {
+        if (element.startsWith("<@!") && element.endsWith(">")) {
+            let id = client.users.get(element.split("!")[1].split(">")[0]);
             let guild = msg.guild;
             element = guild.member(id).nickname
             if (element == null) {
                 element = id.username;
             }
         }
-        if (team1.length >= array.length / 2) {
+        if (team1.length >= args.length / 2) {
             team2.push(element);
         }
-        else if (team2.length >= array.length / 2) {
+        else if (team2.length >= args.length / 2) {
             team1.push(element);
         }
         else if (randomInt(0, 1)) {
@@ -39,7 +37,11 @@ function team(msg, client) {
         }
     })
 
-    return "```Team 1: " + team1.join(" | ") + "\n" + "Team 2: " + team2.join(" | ") + "```";
+    msg.channel.send("```Team 1: " + team1.join(" | ") + "\n" + "Team 2: " + team2.join(" | ") + "```");
 }
 
-export { team };
+export default {
+    name: '!team',
+    description: '> Usage:\n!team [arguments]',
+    execute: team,
+};

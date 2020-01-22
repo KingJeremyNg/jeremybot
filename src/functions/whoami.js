@@ -1,6 +1,6 @@
 import { log } from '../helpers/log';
 
-function whoami(msg, client) {
+function whoami(msg, args, client) {
     console.log(log(msg));
 
     let data = client.users.get(msg.author.id);
@@ -9,7 +9,11 @@ function whoami(msg, client) {
     let username = data.username;
     let discriminator = data.discriminator;
 
-    return `userID: ${id}\nAccount: ${username}#${discriminator}\n`;
+    msg.channel.send(`userID: ${id}\nAccount: ${username}#${discriminator}\n`);
 }
 
-export { whoami };
+export default {
+    name: '!whoami',
+    description: '> Usage:\n!whoami',
+    execute: whoami,
+};
